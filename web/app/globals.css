@@ -1,0 +1,60 @@
+:root {
+  --night: #1a0812;
+  --dusk: #2d1020;
+  --bark: #6b0f2a;
+  --pink: #ffb7c5;
+  --mist: #f5d6dc;
+  --hot: #ff1493;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--night);
+  color: var(--mist);
+  font-family: Inter, system-ui, sans-serif;
+}
+
+.shell {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 32px;
+}
+
+.panel {
+  width: min(100%, 760px);
+  border: 1px solid var(--bark);
+  border-radius: 8px;
+  background: var(--dusk);
+  padding: 32px;
+}
+
+.eyebrow {
+  color: var(--pink);
+  font: 700 0.875rem/1.2 "JetBrains Mono", monospace;
+  margin: 0 0 16px;
+  text-transform: uppercase;
+}
+
+h1 {
+  color: var(--pink);
+  font-family: "Space Grotesk", Inter, system-ui, sans-serif;
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 1;
+  margin: 0 0 20px;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+}

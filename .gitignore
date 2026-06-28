@@ -1,0 +1,7 @@
+node_modules
+.next
+out
+*.wasm
+.env
+dist
+build
