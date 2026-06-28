@@ -59,7 +59,7 @@ All computation runs client-side. Zero servers. Zero cost.
 ## PHASE 1 — CUBIOMES WASM ENGINE
 
 ### 1.1 C Bindings
-- [ ] Create `engine/src/bindings.c` exporting:
+- [x] Create `engine/src/bindings.c` exporting:
   ```c
   int    getBiomeAt(int64_t seed, int x, int z, int version);
   void   getBiomeRegion(int64_t seed, int x, int z, int w, int h, int version, int* out);
@@ -69,7 +69,7 @@ All computation runs client-side. Zero servers. Zero cost.
   int    getSpawnPoint(int64_t seed, int version, int* x, int* z);
   int    hashSeedString(const char* str);   // Java String.hashCode() for text seeds
   ```
-- [ ] Compile to WASM via Emscripten:
+- [x] Compile to WASM via Emscripten:
   ```bash
   emcc engine/src/bindings.c engine/cubiomes/*.c \
     -o web/public/wasm/seed_engine.js \
@@ -81,8 +81,8 @@ All computation runs client-side. Zero servers. Zero cost.
     -s EXPORT_NAME='SeedEngine' \
     -O3
   ```
-- [ ] Output: `web/public/wasm/seed_engine.wasm` + `seed_engine.js`
-- [ ] Write `Makefile` with `make wasm` target
+- [x] Output: `web/public/wasm/seed_engine.wasm` + `seed_engine.js`
+- [x] Write `Makefile` with `make wasm` target
 - [ ] Rebuild on any `engine/src/*.c` change in CI
 
 ### 1.2 Version Support Matrix
