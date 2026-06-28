@@ -22,16 +22,16 @@ All computation runs client-side. Zero servers. Zero cost.
 
 ## PHASE 0 — MONOREPO SETUP
 
-- [ ] Install toolchain:
+- [x] Install toolchain:
   ```bash
   sudo dnf install gcc gcc-c++ make cmake emscripten nodejs
   npm install -g pnpm
   ```
-- [ ] Clone Cubiomes:
+- [x] Clone Cubiomes:
   ```bash
   git clone https://github.com/Cubitect/cubiomes.git engine/cubiomes
   ```
-- [ ] Scaffold monorepo:
+- [x] Scaffold monorepo:
   ```
   seed-finder/
   ├── engine/              # C source + WASM build output
@@ -49,10 +49,10 @@ All computation runs client-side. Zero servers. Zero cost.
   │       ├── wasm/        # compiled .wasm + .js glue
   │       └── thumbnails/  # seed preview images
   ├── scripts/             # one-time seed DB generators (Python)
-  └── .github/workflows/
+  │   └── .github/workflows/
   ```
-- [ ] `git init` + `.gitignore` (node_modules, `*.wasm`, `out/`, `.next/`)
-- [ ] Root `package.json` with pnpm workspace config
+- [x] `git init` + `.gitignore` (node_modules, `*.wasm`, `out/`, `.next/`)
+- [x] Root `package.json` with pnpm workspace config
 
 ---
 
