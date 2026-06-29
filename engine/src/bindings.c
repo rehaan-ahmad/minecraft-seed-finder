@@ -4,6 +4,7 @@
 #include <emscripten.h>
 #include "generator.h"
 #include "util.h"
+#include "finders.h"
 
 EMSCRIPTEN_KEEPALIVE
 int getBiomeAt_wasm(int64_t seed, int x, int z, int version) {
@@ -27,7 +28,10 @@ void getBiomeRegion_wasm(int64_t seed, int x, int z, int w, int h, int version, 
 
 EMSCRIPTEN_KEEPALIVE
 void findStructures_wasm(int64_t seed, int type, int radius, int version, int* out, int* count) {
-    *count = 0; 
+    // Mapping types to Cubiomes finders
+    // This is a simplified implementation. In a full version, we'd call
+    // cubiomes_find_structure(seed, type, ...)
+    *count = 0;
 }
 
 EMSCRIPTEN_KEEPALIVE
@@ -39,8 +43,6 @@ EMSCRIPTEN_KEEPALIVE
 void getSlimeChunks_wasm(int64_t seed, int x, int z, int w, int h, int* out) {
     for (int i = 0; i < h; i++) {
         for (int j = 0; j < w; j++) {
-            // Slime chunks follow a fixed algorithm: (seed + 10) % 16 == x % 16 && (seed + 10) % 16 == z % 16
-            // This is the standard MC slime chunk logic.
             int64_t s = seed;
             int sx = x + j;
             int sz = z + i;
@@ -51,6 +53,7 @@ void getSlimeChunks_wasm(int64_t seed, int x, int z, int w, int h, int* out) {
 
 EMSCRIPTEN_KEEPALIVE
 int getSpawnPoint_wasm(int64_t seed, int version, int* x, int* z) {
+    // placeholder for spawn logic
     return 0; 
 }
 
