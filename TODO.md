@@ -86,27 +86,27 @@ All computation runs client-side. Zero servers. Zero cost.
 - [ ] Rebuild on any `engine/src/*.c` change in CI
 
 ### 1.2 Version Support Matrix
-- [ ] Create `web/lib/versions.ts`:
+- [x] Create `web/lib/versions.ts`:
   ```
   Java:    1.0, 1.2, 1.6, 1.7, 1.8, 1.9, 1.12, 1.13, 1.14, 1.15, 1.16,
-           1.17, 1.18, 1.19, 1.20, 1.20.4, 1.21, 1.21.4
+            1.17, 1.18, 1.19, 1.20, 1.20.4, 1.21, 1.21.4
   Bedrock: 1.16, 1.17, 1.18, 1.19, 1.20, 1.21
   ```
 - [ ] Gate version-specific features:
-  - Pre-1.13: no Buried Treasure, no Shipwreck, no Phantom spawning
-  - Pre-1.14: no Pillager Outpost, no Bamboo Jungle
-  - Pre-1.16: no Bastion, no Nether generation overhaul
-  - Pre-1.18: old terrain generation (build height 256, no deep dark)
-  - Pre-1.19: no Ancient City, no Mangrove Swamp
-  - Pre-1.20: no Cherry Grove, no Trail Ruins, no Sniffer
-  - Pre-1.21: no Trial Chamber, no Copper Bulb
-- [ ] Version enum maps to Cubiomes `MCVersion` constants
-- [ ] Text seeds: pipe through `hashSeedString()` before use
+    - Pre-1.13: no Buried Treasure, no Shipwreck, no Phantom spawning
+    - Pre-1.14: no Pillager Outpost, no Bamboo Jungle
+    - Pre-1.16: no Bastion, no Nether generation overhaul
+    - Pre-1.18: old terrain generation (build height 256, no deep dark)
+    - Pre-1.19: no Ancient City, no Mangrove Swamp
+    - Pre-1.20: no Cherry Grove, no Trail Ruins, no Sniffer
+    - Pre-1.21: no Trial Chamber, no Copper Bulb
+- [x] Version enum maps to Cubiomes `MCVersion` constants
+- [x] Text seeds: pipe through `hashSeedString()` before use
 
 ### 1.3 Web Worker
-- [ ] Create `web/workers/engine.worker.ts`
-- [ ] Load WASM module inside worker (never on main thread)
-- [ ] Message protocol:
+- [x] Create `web/workers/engine.worker.ts`
+- [x] Load WASM module inside worker (never on main thread)
+- [x] Message protocol:
   ```ts
   // Request
   { id: string, type: WorkerTaskType, payload: TaskPayload }
@@ -115,13 +115,13 @@ All computation runs client-side. Zero servers. Zero cost.
   { id: string, type: 'result' | 'progress' | 'error', data: any, progress?: number }
   ```
 - [ ] Supported task types:
-  - `BIOME_REGION` — map tile render
-  - `FIND_STRUCTURE` — locate nearest N instances
-  - `FIND_ALL_STRUCTURES` — scan radius for all
-  - `FIND_ORES` — ore density by chunk
-  - `SLIME_CHUNKS` — boolean grid
-  - `SPAWN_POINT` — get world spawn
-  - `BATCH_SCAN` — seed search engine
+    - `BIOME_REGION` — map tile render
+    - `FIND_STRUCTURE` — locate nearest N instances
+    - `FIND_ALL_STRUCTURES` — scan radius for all
+    - `FIND_ORES` — ore density by chunk
+    - `SLIME_CHUNKS` — boolean grid
+    - `SPAWN_POINT` — get world spawn
+    - `BATCH_SCAN` — seed search engine
 - [ ] Task cancellation via `AbortController`
 - [ ] Progress callbacks for long scans (emit every 1000 seeds)
 - [ ] Worker pool: spawn `navigator.hardwareConcurrency` workers for parallel batch scans
@@ -131,15 +131,15 @@ All computation runs client-side. Zero servers. Zero cost.
 ## PHASE 2 — SEED MAP RENDERER
 
 ### 2.1 Biome Color Maps
-- [ ] Create `web/data/biome-colors.ts`
-- [ ] All Java biomes with hex RGB (1.7 palette + 1.18 cave biomes + 1.19 mangrove + 1.20 cherry)
-- [ ] Cherry Grove biome: highlight `#FFB7C5` (cherry pink) with `#FF91A8` border
+- [x] Create `web/data/biome-colors.ts`
+- [x] All Java biomes with hex RGB (1.7 palette + 1.18 cave biomes + 1.19 mangrove + 1.20 cherry)
+- [x] Cherry Grove biome: highlight `#FFB7C5` (cherry pink) with `#FF91A8` border
 - [ ] Bedrock biome overrides where palette differs
 - [ ] Nether biome palette (Crimson Forest, Warped Forest, Soul Sand Valley, etc.)
 - [ ] End biome palette (End Highlands, End Midlands, Small End Islands)
 
 ### 2.2 Canvas Renderer (`web/lib/MapRenderer.ts`)
-- [ ] OffscreenCanvas for background rendering per tile (512×512px = 32×32 chunks = 512×512 blocks)
+- [x] OffscreenCanvas for background rendering per tile (512×512px = 32×32 chunks = 512×512 blocks)
 - [ ] Tile coordinate system: `tileX = Math.floor(blockX / 512)`
 - [ ] Progressive rendering: render center tile first, spiral outward
 - [ ] Zoom levels: 1px = 4 blocks (default) to 1px = 64 blocks
@@ -152,10 +152,11 @@ All computation runs client-side. Zero servers. Zero cost.
 - [ ] Grid overlay toggle (chunk grid, region grid)
 
 ### 2.3 Tile Cache (`web/lib/TileCache.ts`)
-- [ ] LRU cache: max 512 rendered tile bitmaps in memory
+- [x] LRU cache: max 512 rendered tile bitmaps in memory
 - [ ] Cancel in-flight worker requests for tiles scrolled off-screen
 - [ ] Preload 2-tile border around visible area
 - [ ] Debounce tile requests: 50ms after pan stops
+
 
 ### 2.4 Structure Overlays
 - [ ] SVG pin per structure type (unique icon, cherry-themed)

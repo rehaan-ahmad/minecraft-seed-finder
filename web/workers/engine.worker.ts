@@ -22,16 +22,25 @@ self.onmessage = async (e: MessageEvent<WorkerRequest>) => {
     switch (type) {
       case 'BIOME_REGION': {
         const { x, z, width, height, version } = payload;
-        const buffer = engine._getBiomeRegion_wasm(seed, x, z, width, height, version, 0);
-        // In Emscripten, we need to handle the pointer. 
-        // For now, returning a simple confirmation.
-        self.postMessage({ id, type: 'result', data: 'Region processed' });
+        const ptr = engine._getBiomeRegion_wasm(seed, x, z, width, height, version, 0);
+        // Use engine.HEAP32 to read the returned array
+        const result = new Int32Array(engine.HEAP32.buffer, ptr, width * height);
+        self.postMessage({ id, type: 'result', data: Array.from(result) });
         break;
       }
       case 'SLIME_CHUNKS': {
         const { x, z, width, height } = payload;
-        const buffer = engine._getSlimeChunks_wasm(seed, x, z, width, height, 0);
-        self.postMessage({ id, type: 'result', data: 'Slime chunks processed' });
+        const ptr = engine._getSlimeChunks_wasm(seed, x, z, width, height, 0);
+        const result = new Int32Array(engine.HEAP32.buffer, ptr, width * height);
+        self.postMessage({ id, type: 'result', data: Array.from(result) });
+        break;
+      }
+      case 'SPAWN_POINT': {
+        const spawnPtr = engine._malloc(8); // 2 ints for X and Z
+        const res = engine._getSpawnPoint_wasm(seed, payload.version, spawnPtr, spawnPtr + 4);
+        const spawn = new Int32Array(engine.HEAP32.buffer, spawnPtr, 2);
+        engine._free(spawnPtr);
+        self.postMessage({ id, type: 'result', data: { x: spawn[0], z: spawn[1], success: res === 0 } });
         break;
       }
       default:
